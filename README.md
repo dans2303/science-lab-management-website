@@ -32,8 +32,6 @@ The system automatically:
 - prevents overlapping usage
 - records all booking data
 
----
-
 ### 2. Operational Dashboard
 Provides visibility into:
 - lab usage patterns
@@ -46,8 +44,6 @@ This supports:
 - reporting
 - accreditation preparation
 
----
-
 ### 3. Inventory Management
 Tracks:
 - equipment data
@@ -58,8 +54,6 @@ Supports:
 - updates and maintenance records
 - structured inventory organization
 
----
-
 ### 4. Borrow / Return Workflow
 Implements a simple transaction system:
 
@@ -68,8 +62,6 @@ Implements a simple transaction system:
 - status is maintained (requested, borrowed, returned)  
 
 This introduces **traceability**, which is usually missing in manual systems.
-
----
 
 ### 5. Admin & Log System
 Admin users can:
@@ -103,11 +95,19 @@ Instead of using a traditional backend stack, this project uses **Apps Script + 
 
 ---
 
+## Key Engineering Decisions
+
+- Used **Google Apps Script + Google Sheets** to keep deployment lightweight and practical for a school environment.
+- Added **automatic conflict checking** to reduce booking overlap.
+- Designed a **borrow/return workflow with reference IDs** for item traceability.
+- Included **bilingual UI support** for local usability and broader readability.
+- Structured the system into separate modules for **booking, dashboard, log-book, and inventory administration**.
+
+---
+
 ## Screenshots
 
 ### Home Page
-
-::contentReference[oaicite:0]{index=0}
 
 ![Home](assets/home.png)
 
@@ -115,23 +115,17 @@ Instead of using a traditional backend stack, this project uses **Apps Script + 
 
 ### SOP & Usage Guidelines
 
-::contentReference[oaicite:1]{index=1}
-
 ![SOP](assets/sop.png)
 
 ---
 
 ### Booking System
 
-::contentReference[oaicite:2]{index=2}
-
 ![Booking](assets/booking.png)
 
 ---
 
 ### Dashboard & Monitoring
-
-::contentReference[oaicite:3]{index=3}
 
 ![Dashboard](assets/dashboard.png)
 
@@ -152,6 +146,22 @@ Instead of using a traditional backend stack, this project uses **Apps Script + 
 ![Inventory Panel](assets/inventory-admin.png)
 ![Inventory Input](assets/inventory-data-input.png)
 ![Inventory Data Table](assets/ui-inventory-admin-data-lists.png)
+
+---
+## Repository Structure
+
+```text
+science-lab-management-website/
+├── assets/                       # README screenshots
+├── backend/                      # Sanitized Apps Script backend
+│   └── LabIPA_AppsScript.gs
+├── public/                       # Static files
+├── src/                          # Frontend pages and components
+├── .gitignore
+├── package.json
+├── vite.config.ts
+└── README.md
+```
 ---
 
 ## Configuration (Public Version)
@@ -169,7 +179,6 @@ VITE_BOOKING_ENDPOINT=YOUR_APPS_SCRIPT_URL
 VITE_LAB_CALENDAR_URL_SD1_SMP=YOUR_URL
 VITE_LAB_CALENDAR_URL_SD2=YOUR_URL
 
-
 ### Backend
 
 Set Apps Script `ScriptProperties`:
@@ -181,7 +190,6 @@ LAB_CALENDAR_ID_SD1_SMP
 LAB_CALENDAR_ID_SD2
 ACCESS_CODE
 ADMIN_KEY
-
 
 ---
 
