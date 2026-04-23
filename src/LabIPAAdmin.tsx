@@ -5,7 +5,8 @@ const logo = "/logo-alkhairiyah.png";
 /* ========= ENDPOINT ========= */
 
 const BOOKING_ENDPOINT =
-  "https://script.google.com/macros/s/AKfycbzhu2nsGjTx8hsX8Kz9Z1iTARsclBe1AFTrEgxiS1yYRZHkfKora0m1LSCR5ph_iUDT/exec";
+  import.meta.env.VITE_BOOKING_ENDPOINT ||
+  "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
 
 /* ========= BACKEND MODES =========*/
 const MODE_ADMIN_SET_BOOKING_STATUS = "setBookingStatus";
@@ -359,7 +360,7 @@ const LabIPAAdmin = () => {
   // NEW: filter for printing inventory
   const [inventoryPrintLab, setInventoryPrintLab] = useState<"ALL" | "LAB1" | "LAB2">("ALL");
 
-  // ✅ NEW: ref to avoid state timing issue (dropdown change then immediate click print)
+  // NEW: ref to avoid state timing issue (dropdown change then immediate click print)
   const inventoryPrintLabRef = useRef<"ALL" | "LAB1" | "LAB2">("ALL");
 
   const [editingItem, setEditingItem] = useState<InventoryItem | null>(null);
@@ -1290,7 +1291,7 @@ const fetchBorrowedInventory = async () => {
           <div class="grid">
             ${data
               .map((item) => {
-                // ✅ USE isBundledItem so it is not unused anymore
+                // USE isBundledItem so it is not unused anymore
                 const bundled = isBundledItem(item);
 
                 const nama = escapeHtml(item["Nama Alat"] ?? "-");
@@ -2214,7 +2215,7 @@ const renderLogBook = () => {
                     <th className="border border-emerald-100 px-1.5 py-1 text-left">{T("Min Stok", "Min Stock")}</th>
                     <th className="border border-emerald-100 px-1.5 py-1 text-left">{T("Kondisi", "Condition")}</th>
 
-                    {/* ✅ NEW */}
+                    {/* NEW */}
                     <th className="border border-emerald-100 px-1.5 py-1 text-left">{T("Terakhir Dicek", "Last Checked")}</th>
 
                     <th className="border border-emerald-100 px-1.5 py-1 text-left">{T("Foto", "Photo")}</th>
@@ -2238,7 +2239,7 @@ const renderLogBook = () => {
                         <td className="border border-emerald-100 px-1.5 py-1 text-right">{String(item["Min Stok"] ?? "")}</td>
                         <td className="border border-emerald-100 px-1.5 py-1">{String(item.Kondisi ?? "")}</td>
 
-                        {/* ✅ NEW */}
+                        {/* NEW */}
                         <td className="border border-emerald-100 px-1.5 py-1 whitespace-nowrap">{String(item["Terakhir Dicek"] ?? "") || "-"}</td>
 
                         <td className="border border-emerald-100 px-1.5 py-1">
@@ -2361,7 +2362,7 @@ const renderLogBook = () => {
                 />
               </div>
 
-              {/* ✅ Terakhir Dicek + "Hari ini" button (only addition) */}
+              {/* Terakhir Dicek + "Hari ini" button (only addition) */}
               <div>
                 <label className="block text-slate-500 mb-1">{T("Terakhir Dicek", "Last Checked")}</label>
 

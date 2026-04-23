@@ -2,14 +2,17 @@
 import { useEffect, useMemo, useState } from "react";
 const logo = "/logo-alkhairiyah.png";
 
-/* ========= ENDPOINT ========= */
+/* ========= PUBLIC CONFIG ========= */
 
-// Same Apps Script endpoint as Booking & Admin
+// Same Apps Script backend as Booking & Admin
 const BOOKING_ENDPOINT =
-  "https://script.google.com/macros/s/AKfycbzhu2nsGjTx8hsX8Kz9Z1iTARsclBe1AFTrEgxiS1yYRZHkfKora0m1LSCR5ph_iUDT/exec";
+  import.meta.env.VITE_BOOKING_ENDPOINT ||
+  "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
 
 const STATS_ENDPOINT = `${BOOKING_ENDPOINT}?mode=stats`;
 const INVENTORY_ENDPOINT = `${BOOKING_ENDPOINT}?mode=inventory`;
+const IS_DEMO_MODE =
+  BOOKING_ENDPOINT === "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
 
 /* ========= HELPERS ========= */
 
@@ -154,6 +157,16 @@ const LabIPADashboard = () => {
   const fetchStats = async () => {
     setStatsLoading(true);
     setStatsError(null);
+
+    if (IS_DEMO_MODE) {
+      setStats(null);
+      setStatsError(
+        "Demo mode aktif. Tambahkan VITE_BOOKING_ENDPOINT di file .env untuk memuat statistik."
+      );
+      setStatsLoading(false);
+      return;
+    }
+
     try {
       const res = await fetch(STATS_ENDPOINT);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -170,6 +183,16 @@ const LabIPADashboard = () => {
   const fetchInventory = async () => {
     setInvLoading(true);
     setInvError(null);
+
+    if (IS_DEMO_MODE) {
+      setItems([]);
+      setInvError(
+        "Demo mode aktif. Tambahkan VITE_BOOKING_ENDPOINT di file .env untuk memuat inventaris."
+      );
+      setInvLoading(false);
+      return;
+    }
+
     try {
       const res = await fetch(INVENTORY_ENDPOINT);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -471,7 +494,7 @@ const LabIPADashboard = () => {
               <h2 className="text-sm sm:text-base font-semibold text-slate-900">
                 10 Booking Terakhir
               </h2>
-            <span className="text-[11px] text-slate-500">
+              <span className="text-[11px] text-slate-500">
                 Sumber: sistem booking Lab IPA
               </span>
             </div>

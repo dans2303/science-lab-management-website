@@ -2,18 +2,27 @@
 import React, { useEffect, useMemo, useState } from "react";
 const logo = "/logo-alkhairiyah.png";
 
-/* ========= ENDPOINTS ========= */
+/* ========= PUBLIC CONFIG =========
+   Put real values in .env for local/private deployment.
+   Public GitHub version intentionally uses placeholders.
+================================= */
 
 const BOOKING_ENDPOINT =
-  "https://script.google.com/macros/s/AKfycbzhu2nsGjTx8hsX8Kz9Z1iTARsclBe1AFTrEgxiS1yYRZHkfKora0m1LSCR5ph_iUDT/exec";
+  import.meta.env.VITE_BOOKING_ENDPOINT ||
+  "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
 
-// Lab 1: SD1 & SMP (existing calendar – already working)
+// Lab 1: SD1 & SMP calendar embed URL
 const LAB_CALENDAR_URL_SD1_SMP =
-  "https://calendar.google.com/calendar/embed?src=c_7af2ec67bd39c96883414b130d601e2526fad686ca75d95fde2f7a88df7e951d%40group.calendar.google.com&ctz=Asia%2FJakarta";
+  import.meta.env.VITE_LAB_CALENDAR_URL_SD1_SMP ||
+  "YOUR_SD1_SMP_GOOGLE_CALENDAR_EMBED_URL_HERE";
 
-// Lab 2: SD2 – your separate calendar
+// Lab 2: SD2 calendar embed URL
 const LAB_CALENDAR_URL_SD2 =
-  "https://calendar.google.com/calendar/embed?src=c_1de62064caae4595aa890abba70668f5d04799e42154e690c3a7d2e7555c9198%40group.calendar.google.com&ctz=Asia%2FJakarta";
+  import.meta.env.VITE_LAB_CALENDAR_URL_SD2 ||
+  "YOUR_SD2_GOOGLE_CALENDAR_EMBED_URL_HERE";
+
+const IS_DEMO_MODE =
+  BOOKING_ENDPOINT === "YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
 
 type UnitCategory = "SD1_SMP" | "SD2" | "OTHER";
 
@@ -96,6 +105,19 @@ const LabIPABooking: React.FC<LabIPABookingProps> = ({ onBack }) => {
   const [isEnglish, setIsEnglish] = useState(false);
   const T = (id: string, en: string) => (isEnglish ? en : id);
 
+  const openInfoModal = (
+    titleId: string,
+    titleEn: string,
+    msgId: string,
+    msgEn: string,
+    type: "success" | "error" = "error"
+  ) => {
+    setModalTitle(T(titleId, titleEn));
+    setModalMessage(T(msgId, msgEn));
+    setModalType(type);
+    setModalOpen(true);
+  };
+
   // which calendar is shown
   const [activeCalendar, setActiveCalendar] = useState<"SD1_SMP" | "SD2">(
     "SD1_SMP"
@@ -149,6 +171,19 @@ const LabIPABooking: React.FC<LabIPABookingProps> = ({ onBack }) => {
       setInvError("");
 
       try {
+        if (IS_DEMO_MODE) {
+          if (!cancelled) {
+            setInvItems([]);
+            setInvError(
+              T(
+                "Mode demo aktif. Tambahkan URL Apps Script Anda sendiri di file .env untuk memuat inventaris.",
+                "Demo mode is active. Add your own Apps Script URL in the .env file to load inventory."
+              )
+            );
+          }
+          return;
+        }
+
         const params = new URLSearchParams({ mode: "inventory" });
         const res = await fetch(`${BOOKING_ENDPOINT}?${params.toString()}`);
         if (!res.ok) {
@@ -312,6 +347,17 @@ const LabIPABooking: React.FC<LabIPABookingProps> = ({ onBack }) => {
             "Please choose the Lab User Unit correctly."
           )
         );
+      }
+
+      if (IS_DEMO_MODE) {
+        openInfoModal(
+          "Mode Demo",
+          "Demo Mode",
+          "Halaman booking ini menampilkan implementasi asli, tetapi URL backend sengaja diganti placeholder untuk versi public GitHub. Tambahkan konfigurasi Anda sendiri di file .env agar booking dapat dijalankan.",
+          "This booking page shows the real implementation, but the backend URL is intentionally replaced with a placeholder for the public GitHub version. Add your own configuration in the .env file to enable booking."
+        );
+        setIsSubmitting(false);
+        return;
       }
 
       /* === 1) FRONTEND CONFLICT CHECK === */
@@ -944,12 +990,50 @@ Activity: ${conflictJson.existingActivity || "-"}`
 
                 <div className="w-full aspect-[16/9] sm:aspect-[16/8] lg:aspect-[16/7] mt-9">
                   {activeCalendar === "SD1_SMP" ? (
-                    <iframe
-                      src={LAB_CALENDAR_URL_SD1_SMP}
-                      className="w-full h-full border-0"
-                      loading="lazy"
-                      title="Lab IPA SD1 & SMP Calendar"
-                    ></iframe>
+                    LAB_CALENDAR_URL_SD1_SMP ===
+                    "YOUR_SD1_SMP_GOOGLE_CALENDAR_EMBED_URL_HERE" ? (
+                      <div className="w-full h-full flex items-center justify-center bg-slate-50 text-slate-600 px-6 text-center">
+                        <div>
+                          <div className="font-semibold text-slate-800 mb-2">
+                            {T(
+                              "Kalender demo belum dikonfigurasi",
+                              "Demo calendar is not configured yet"
+                            )}
+                          </div>
+                          <div className="text-sm">
+                            {T(
+                              "Tambahkan URL embed Google Calendar Anda sendiri di file .env.",
+                              "Add your own Google Calendar embed URL in the .env file."
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <iframe
+                        src={LAB_CALENDAR_URL_SD1_SMP}
+                        className="w-full h-full border-0"
+                        loading="lazy"
+                        title="Lab IPA SD1 & SMP Calendar"
+                      ></iframe>
+                    )
+                  ) : LAB_CALENDAR_URL_SD2 ===
+                    "YOUR_SD2_GOOGLE_CALENDAR_EMBED_URL_HERE" ? (
+                    <div className="w-full h-full flex items-center justify-center bg-slate-50 text-slate-600 px-6 text-center">
+                      <div>
+                        <div className="font-semibold text-slate-800 mb-2">
+                          {T(
+                            "Kalender demo belum dikonfigurasi",
+                            "Demo calendar is not configured yet"
+                          )}
+                        </div>
+                        <div className="text-sm">
+                          {T(
+                            "Tambahkan URL embed Google Calendar Anda sendiri di file .env.",
+                            "Add your own Google Calendar embed URL in the .env file."
+                          )}
+                        </div>
+                      </div>
+                    </div>
                   ) : (
                     <iframe
                       src={LAB_CALENDAR_URL_SD2}
