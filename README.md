@@ -105,11 +105,53 @@ Instead of using a traditional backend stack, this project uses **Apps Script + 
 
 ## Screenshots
 
-![Home](assets/home.png)
-![Booking](assets/booking.png)
-![Dashboard](assets/dashboard.png)
-![Admin](assets/admin.png)
+### Home Page
 
+::contentReference[oaicite:0]{index=0}
+
+![Home](assets/home.png)
+
+---
+
+### SOP & Usage Guidelines
+
+::contentReference[oaicite:1]{index=1}
+
+![SOP](assets/sop.png)
+
+---
+
+### Booking System
+
+::contentReference[oaicite:2]{index=2}
+
+![Booking](assets/booking.png)
+
+---
+
+### Dashboard & Monitoring
+
+::contentReference[oaicite:3]{index=3}
+
+![Dashboard](assets/dashboard.png)
+
+---
+
+### Admin Login
+![Admin Login](assets/admin-login.png)
+
+---
+
+### Log Book Management
+![Logbook Overview](assets/front-logbook-admin.png)
+![Logbook Table](assets/logbook-ui-example.png)
+
+---
+
+### Inventory Management
+![Inventory Panel](assets/inventory-admin.png)
+![Inventory Input](assets/inventory-data-input.png)
+![Inventory Data Table](assets/ui-inventory-admin-data-lists.png)
 ---
 
 ## Configuration (Public Version)
@@ -149,7 +191,7 @@ This is not just a UI project. It demonstrates:
 
 - system-level thinking  
 - workflow design for real users  
-- frontend–backend integration  
+- frontendâ€“backend integration  
 - data modeling using Google Sheets  
 - operational automation (calendar + email)  
 - handling of real-world constraints (non-technical users, limited infrastructure)
@@ -170,4 +212,4 @@ Developed for a school laboratory environment with:
 ## Author
 
 Danisa  
-M.Sc. Electrical Engineering — Biomedical AI
+M.Sc. Electrical Engineering â€” Biomedical AI
