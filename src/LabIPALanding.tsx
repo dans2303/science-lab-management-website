@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const logo = "/logo-alkhairiyah.png";
 
 const LabIPALanding: React.FC = () => {
-  const [lang, setLang] = useState<"id" | "en">("id");
+  const [lang, setLang] = useState<"id" | "en">("en");
   const T = (id: string, en: string) => (lang === "id" ? id : en);
 
   return (
@@ -21,13 +21,16 @@ const LabIPALanding: React.FC = () => {
             </div>
             <div className="leading-tight">
               <div className="text-[10px] tracking-[0.25em] uppercase text-emerald-100/90">
-                Portal Lab IPA
+                {T("Portal Lab IPA", "Science Lab Portal")}
               </div>
               <div className="text-lg sm:text-xl font-semibold">
                 Lab IPA Alkhairiyah
               </div>
               <div className="text-[11px] text-emerald-100/80">
-                SD 1, SD 2 & SMP • Sains & Praktikum
+                {T(
+                  "SD 1, SD 2 & SMP • Sains & Praktikum",
+                  "SD 1, SD 2 & SMP • Science & Laboratory Activities"
+                )}
               </div>
             </div>
           </div>
@@ -93,23 +96,36 @@ const LabIPALanding: React.FC = () => {
         <section className="grid gap-6 lg:grid-cols-[minmax(0,2fr),minmax(0,1.4fr)] items-stretch">
           {/* LEFT SIDE */}
           <div className="space-y-5 sm:space-y-6">
-            {/* 🔥 NEW HERO TITLE */}
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight drop-shadow-sm">
                 {T(
                   "Portal Digital Lab IPA Alkhairiyah",
-                  "Alkhairiyah Digital Science Lab Portal"
+                  "Digital Science Lab Management Platform"
                 )}
               </h1>
+
+              <div className="text-sm sm:text-base text-emerald-100/90 font-medium">
+                {T(
+                  "Lab IPA Alkhairiyah — SD 1, SD 2 & SMP",
+                  "Lab IPA Alkhairiyah — SD 1, SD 2 & SMP"
+                )}
+              </div>
 
               <p className="flex items-center gap-2 text-[12px] sm:text-sm text-emerald-50/90 max-w-xl">
                 <span className="text-lg sm:text-xl">🧪</span>
                 <span>
                   {T(
                     "Platform terintegrasi kegiatan & manajemen Lab IPA.",
-                    "An integrated platform for science lab activities & management."
+                    "Integrated platform for science lab operations and management."
                   )}
                 </span>
+              </p>
+
+              <p className="text-[11px] sm:text-xs text-emerald-100/80 max-w-2xl">
+                {T(
+                  "Dirancang sebagai sistem operasional nyata untuk mendukung pengelolaan laboratorium sekolah.",
+                  "Designed as a real operational system for school laboratory management."
+                )}
               </p>
             </div>
 
@@ -138,14 +154,17 @@ const LabIPALanding: React.FC = () => {
                 <span>
                   {T(
                     "Cek jadwal & konflik otomatis",
-                    "Check schedule & conflicts automatically"
+                    "Automatic schedule conflict detection"
                   )}
                 </span>
               </span>
               <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-900/40 border border-emerald-300/40">
                 <span>🔐</span>
                 <span>
-                  {T("Gunakan kode akses guru", "Use teacher access code")}
+                  {T(
+                    "Gunakan kode akses guru",
+                    "Access-controlled booking system"
+                  )}
                 </span>
               </span>
             </div>
@@ -160,17 +179,18 @@ const LabIPALanding: React.FC = () => {
               <span>
                 {T(
                   "Langkah Cepat Booking Lab",
-                  "Quick Steps to Book the Lab"
+                  "Quick Lab Booking Steps"
                 )}
               </span>
             </h2>
+
             <ol className="space-y-2 text-[12px] sm:text-[13px] text-slate-700">
               <li className="flex gap-2">
                 <span className="mt-0.5 text-emerald-600">1.</span>
                 <span>
                   {T(
                     "Buka halaman Booking Lab & lihat jadwal kosong.",
-                    "Open the Booking page & see available slots."
+                    "Open the booking page and check available schedule."
                   )}
                 </span>
               </li>
@@ -179,7 +199,7 @@ const LabIPALanding: React.FC = () => {
                 <span>
                   {T(
                     "Pilih Lab SD 1 & SMP atau Lab SD 2.",
-                    "Choose Lab SD1 & SMP or Lab SD2."
+                    "Select lab (SD 1 & SMP or SD 2)."
                   )}
                 </span>
               </li>
@@ -197,7 +217,7 @@ const LabIPALanding: React.FC = () => {
                 <span>
                   {T(
                     "Cek email / kalender untuk undangan otomatis.",
-                    "Check your email/calendar for automatic invites."
+                    "Receive automatic confirmation via email/calendar."
                   )}
                 </span>
               </li>
@@ -207,7 +227,7 @@ const LabIPALanding: React.FC = () => {
               💡{" "}
               {T(
                 "Untuk SOP & ringkasan penggunaan lab, gunakan menu utama di bawah.",
-                "For SOP & usage summary, use the main menu below."
+                "For SOP and usage summary, use the main menu below."
               )}
             </div>
           </div>
@@ -236,7 +256,7 @@ const LabIPALanding: React.FC = () => {
                   <div className="text-[11px] text-slate-600">
                     {T(
                       "Panduan umum & tata tertib.",
-                      "General guidelines & rules."
+                      "General guidelines and rules."
                     )}
                   </div>
                 </div>
@@ -244,7 +264,7 @@ const LabIPALanding: React.FC = () => {
               <p className="text-[11px] text-slate-700">
                 {T(
                   "Acuan bersama guru & manajemen.",
-                  "Shared reference for teachers & management."
+                  "Shared reference for teachers and management."
                 )}
               </p>
             </a>
@@ -294,13 +314,16 @@ const LabIPALanding: React.FC = () => {
                   <div className="text-[11px] text-slate-600">
                     {T(
                       "Ringkasan penggunaan lab per unit & per bulan.",
-                      "Summary of lab usage per unit & per month."
+                      "Summary of lab usage per unit and per month."
                     )}
                   </div>
                 </div>
               </div>
               <p className="text-[11px] text-slate-700">
-                {T("Untuk akreditasi & monitoring.", "For accreditation & monitoring.")}
+                {T(
+                  "Untuk akreditasi & monitoring.",
+                  "For accreditation and monitoring."
+                )}
               </p>
             </a>
 
@@ -315,12 +338,12 @@ const LabIPALanding: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-sm font-semibold text-slate-900">
-                    Panel Admin
+                    {T("Panel Admin", "Admin Panel")}
                   </div>
                   <div className="text-[11px] text-slate-600">
                     {T(
                       "Khusus manajemen & PJ Lab.",
-                      "For management & Lab PIC only."
+                      "For management and Lab PIC only."
                     )}
                   </div>
                 </div>
@@ -328,7 +351,7 @@ const LabIPALanding: React.FC = () => {
               <p className="text-[11px] text-slate-700">
                 {T(
                   "Akses statistik, log-book & inventaris.",
-                  "Access statistics, log-book & inventory."
+                  "Access statistics, log-book, and inventory."
                 )}
               </p>
             </a>
